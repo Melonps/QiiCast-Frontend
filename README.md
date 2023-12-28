@@ -1,7 +1,10 @@
 
 # QiiCast-FRONTEND
 
-このリポジトリはQiiCast-FRONTEND プロジェクトの一部です。以下に、このプロジェクトのセットアップ手順と必要な設定について説明します。
+このリポジトリは先端ソフトウェア環境構築実践のグループ課題（グループH）、QiiCast-FRONTEND プロジェクトの一部です。
+
+main: https://github.com/penguin-prg/OMU-TeamProject-GroupH
+backend: https://github.com/Melonps/QiiCast-Backend
 
 ## 必要な設定
 TODO
