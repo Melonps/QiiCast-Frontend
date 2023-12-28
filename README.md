@@ -4,6 +4,7 @@
 このリポジトリは先端ソフトウェア環境構築実践のグループ課題（グループH）、QiiCast-FRONTEND プロジェクトの一部です。
 
 main: https://github.com/penguin-prg/OMU-TeamProject-GroupH
+
 backend: https://github.com/Melonps/QiiCast-Backend
 
 ## 必要な設定
