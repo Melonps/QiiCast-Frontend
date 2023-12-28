@@ -1,0 +1,5 @@
+phase: prototype
+
+prototype:
+    downloaded_data: /app/data/dl_data.json
+    processed_data: /app/data/dummy_data.json
