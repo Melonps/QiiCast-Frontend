@@ -1,0 +1,22 @@
+version: '3'
+services:
+  playground:                 
+    container_name: 'QiiCast-Frontend'  
+    hostname: 'python'        
+
+    build: .                 
+    shm_size: '54gb'
+    restart: always          
+    working_dir: '/app' 
+    tty: true            
+    volumes:             
+      - type: bind       
+        source: ../  
+        target: /app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
