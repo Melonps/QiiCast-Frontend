@@ -8,19 +8,26 @@ main: https://github.com/penguin-prg/OMU-TeamProject-GroupH
 backend: https://github.com/Melonps/QiiCast-Backend
 
 ## 必要な設定
-TODO
+- conf/secret.ymlに、Qiita API v2のアクセストークンを入れる
+    ```
+    qiita_v2:
+        access_token: [ここにアクセストークンを置く]    
+    ```
+    - ATTENTION: このファイルはpushしないように
 
 ## インストール手順
 以下の手順に従って、プロジェクトをセットアップしてください。
 
 
-1. Dockerコンテナを起動します
+
+
+1. Dockerコンテナを起動
 
     ```shell
     TODO
     ```
 
-2. アプリケーションを起動します。
+2. アプリケーションを起動
 
     ```shell
     streamlit run src/app.py

@@ -5,7 +5,7 @@ services:
     hostname: 'python'        
 
     build: .                 
-    shm_size: '54gb'
+    shm_size: '8gb'
     restart: always          
     working_dir: '/app' 
     tty: true            
@@ -13,10 +13,3 @@ services:
       - type: bind       
         source: ../  
         target: /app
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
