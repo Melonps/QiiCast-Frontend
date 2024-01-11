@@ -22,7 +22,7 @@ def request_page(save_path: str, tag: Optional[str]) -> None:
     headers = {
         'Authorization': f'Bearer {API_TOKEN}'
     }
-    url = f'https://qiita.com/api/v2/items?page=1&per_page=100' # TODO: この辺もconfig.ymlに書く
+    url = f'https://qiita.com/api/v2/items?page=1&per_page=100'
     if tag:
         url += "&query=tag%3A" + tag
     response = requests.get(url, headers=headers)
