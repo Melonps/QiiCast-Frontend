@@ -3,6 +3,7 @@ import streamlit as st
 import yaml
 import requests
 import random
+from streamlit_card import card
 
 from lib.qiita_api import request_page
 
@@ -11,7 +12,6 @@ if True:
     PHASE = CFG["phase"]
 
 random.seed(42)
-
 
 # タイトルとヘッダー
 st.image("src/images/Qiita_Logo.png")
@@ -37,12 +37,29 @@ for page in dl_data:
 processed_data = sorted(dl_data, key=lambda x: x["rating"], reverse=True)
 
 # rating上位の記事を表示
-st.header("上位記事")
+st.header("伸びそうな記事ランキング")
 for rank in range(topk):
-    st.subheader(f"{rank+1}位: {processed_data[rank]['title']} (rating: {processed_data[rank]['rating']:.2f})")
-    st.link_button("記事を見る", processed_data[rank]['url'])
-    st.write(f"タグ: {', '.join([d['name'] for d in processed_data[rank]['tags']])}")
-    st.write(f"投稿日: {processed_data[rank]['created_at']}")
-    st.write(f"from: @{processed_data[rank]['user']['id']}")
-
+    st.subheader(f"第{rank+1}位 (rating: {processed_data[rank]['rating']:.2f})")
+    hasClicked = card(
+        title=f"{processed_data[rank]['title']}",
+        text=[
+            f"タグ: {', '.join([d['name'] for d in processed_data[rank]['tags']])}",
+            f"@{processed_data[rank]['user']['id']}, 投稿日: {processed_data[rank]['created_at'][:10]}",
+        ],
+        # image="/app/src/images/Qiita_Logo.png",
+        image="http://placekitten.com/200/300", # TODO: 画像はサンプルから変える
+        url=processed_data[rank]['url'],
+        styles={
+            "card": {
+                "width": "600px",
+                "height": "150px",
+                "border-radius": "10px",
+                "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
+                "margin": "5px",
+            },
+            "title": {
+                "font-size": "20px",
+            }
+        },
+    )
 
