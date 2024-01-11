@@ -40,7 +40,7 @@ processed_data = sorted(dl_data, key=lambda x: x["rating"], reverse=True)
 st.header("上位記事")
 for rank in range(topk):
     st.subheader(f"{rank+1}位: {processed_data[rank]['title']} (rating: {processed_data[rank]['rating']:.2f})")
-    st.write(f"URL: {processed_data[rank]['url']}")
+    st.link_button("記事を見る", processed_data[rank]['url'])
     st.write(f"タグ: {', '.join([d['name'] for d in processed_data[rank]['tags']])}")
     st.write(f"投稿日: {processed_data[rank]['created_at']}")
     st.write(f"from: @{processed_data[rank]['user']['id']}")
