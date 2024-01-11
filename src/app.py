@@ -19,7 +19,7 @@ st.title("QiiCast")
 st.write("TODO: ここにQiiCastの説明を書く")
 
 # ユーザからのタグ等の指定
-tag = st.selectbox("タグを選択してください", ("VBA", "PHP", "Mac"))
+tag = st.selectbox("タグを選択してください", CFG["tags"])
 topk = st.slider("上位何件を表示しますか", 3, 100, 10)
 
 # 記事を取得
