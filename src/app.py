@@ -47,7 +47,7 @@ for rank in range(topk):
     hasClicked = card(
         title=f"{processed_data[rank]['title']}",
         text=[
-            f"タグ: {', '.join([d['name'] for d in processed_data[rank]['tags']])}",
+            f"#{' #'.join([d['name'] for d in processed_data[rank]['tags']])}",
             f"@{processed_data[rank]['user']['id']}, 投稿日: {processed_data[rank]['created_at'][:10]}",
         ],
         # image=image_path,
