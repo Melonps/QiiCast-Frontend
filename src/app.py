@@ -4,8 +4,11 @@ import yaml
 import requests
 import random
 from streamlit_card import card
-
+import numpy as np
 from lib.qiita_api import request_page
+import io
+import os
+from PIL import Image
 
 if True:
     CFG = yaml.safe_load(open("/app/conf/config.yml", "r"))
@@ -16,11 +19,11 @@ random.seed(42)
 # タイトルとヘッダー
 st.image("src/images/Qiita_Logo.png")
 st.title("QiiCast")
-st.write("TODO: ここにQiiCastの説明を書く")
+st.write("QiiCastは、Qiitaの最新記事の中から「1か月後に人気の出る記事」をサジェストするWebアプリです。")
 
 # ユーザからのタグ等の指定
-tag = st.selectbox("タグを選択してください", CFG["tags"])
-topk = st.slider("上位何件を表示しますか", 3, 100, 10)
+tag = st.selectbox("タグを1つ選択してください", CFG["tags"])
+topk = st.slider("表示件数：", 3, 100, 10)
 
 # 記事を取得
 request_page(save_path=CFG[PHASE]["downloaded_data"], tag=tag)
@@ -37,17 +40,18 @@ for page in dl_data:
 processed_data = sorted(dl_data, key=lambda x: x["rating"], reverse=True)
 
 # rating上位の記事を表示
-st.header("伸びそうな記事ランキング")
+st.header("1か月後に人気が出そうな記事ランキング")
 for rank in range(topk):
     st.subheader(f"第{rank+1}位 (rating: {processed_data[rank]['rating']:.2f})")
+
     hasClicked = card(
         title=f"{processed_data[rank]['title']}",
         text=[
             f"タグ: {', '.join([d['name'] for d in processed_data[rank]['tags']])}",
             f"@{processed_data[rank]['user']['id']}, 投稿日: {processed_data[rank]['created_at'][:10]}",
         ],
-        # image="/app/src/images/Qiita_Logo.png",
-        image="http://placekitten.com/200/300", # TODO: 画像はサンプルから変える
+        # image=image_path,
+        image=processed_data[rank]['user']['profile_image_url'],
         url=processed_data[rank]['url'],
         styles={
             "card": {
