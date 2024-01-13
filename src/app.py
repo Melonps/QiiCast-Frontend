@@ -28,10 +28,21 @@ with open(CFG[PHASE]["downloaded_data"], "r") as f:
     dl_data = json.load(f)
 
 # 推論
-# TODO: ここにGBDTの推論を入れる？
-# とりあえずダミーのratingを付与する
-for page in dl_data:
-    page["rating"] = random.random()
+# Backend で rating 付与する場合
+ url = 'https://127.0.0.1:8000/test/'
+ response = requests.post(url, json=dl_data)
+ for (page,rate) in zip(dl_data,response):
+   page["rating"] = rate
+
+# Backend から model を受け取る場合
+# url = 'https://127.0.0.1:8000/test/'
+# response_model = requests.get(url)
+# features = データ成形 (Backend 参考)
+# rate = response_model.predict(features)
+
+# ダミーのratingを付与する
+# for page in dl_data:
+#    page["rating"] = random.random()
 
 # ratingの高い順にソートする
 processed_data = sorted(dl_data, key=lambda x: x["rating"], reverse=True)
@@ -44,5 +55,3 @@ for rank in range(topk):
     st.write(f"タグ: {', '.join([d['name'] for d in processed_data[rank]['tags']])}")
     st.write(f"投稿日: {processed_data[rank]['created_at']}")
     st.write(f"from: @{processed_data[rank]['user']['id']}")
-
-
