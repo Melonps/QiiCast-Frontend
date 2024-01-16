@@ -22,27 +22,13 @@ st.write("TODO: ここにQiiCastの説明を書く")
 tag = st.selectbox("タグを選択してください", ("VBA", "PHP", "Mac"))
 topk = st.slider("上位何件を表示しますか", 3, 100, 10)
 
-# 記事を取得
-request_page(save_path=CFG[PHASE]["downloaded_data"], tag=tag)
-with open(CFG[PHASE]["downloaded_data"], "r") as f:
-    dl_data = json.load(f)
-
-# 推論
-# Backend で rating 付与する場合
- url = 'https://127.0.0.1:8000/test/'
- response = requests.post(url, json=dl_data)
- for (page,rate) in zip(dl_data,response):
-   page["rating"] = rate
-
-# Backend から model を受け取る場合
-# url = 'https://127.0.0.1:8000/test/'
-# response_model = requests.get(url)
-# features = データ成形 (Backend 参考)
-# rate = response_model.predict(features)
-
-# ダミーのratingを付与する
-# for page in dl_data:
-#    page["rating"] = random.random()
+# BackendをAPIとして呼び出してページ取得・推論
+url = 'http://127.0.0.1:8000/get_article'
+data = {
+   "tag" : tag,
+   "num_articles" : topk
+}
+dl_data = requests.post(url, json=data).json()
 
 # ratingの高い順にソートする
 processed_data = sorted(dl_data, key=lambda x: x["rating"], reverse=True)
