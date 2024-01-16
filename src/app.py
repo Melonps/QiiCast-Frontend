@@ -26,7 +26,7 @@ topk = st.slider("上位何件を表示しますか", 3, 100, 10)
 url = 'http://127.0.0.1:8000/get_article'
 data = {
    "tag" : tag,
-   "num_articles" : topk
+   "num_articles" : 100
 }
 dl_data = requests.post(url, json=data).json()
 
