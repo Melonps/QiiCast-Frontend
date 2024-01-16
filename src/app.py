@@ -23,15 +23,16 @@ st.write("QiiCastは、Qiitaの最新記事の中から「1か月後に人気の
 
 # ユーザからのタグ等の指定
 tag = st.selectbox("タグを1つ選択してください", CFG["tags"])
+tag = "\"" + tag + "\""
 topk = st.slider("表示件数：", 3, 100, 10)
 
 # BackendをAPIとして呼び出してページ取得・推論
 url = 'http://127.0.0.1:8000/get_article'
-data = {
+params = {
    "tag" : tag,
    "num_articles" : 100
 }
-dl_data = requests.post(url, json=data).json()
+dl_data = requests.get(url, params=params).json()
 
 # ratingの高い順にソートする
 processed_data = sorted(dl_data, key=lambda x: x["rating"], reverse=True)
